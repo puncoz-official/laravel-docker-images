@@ -32,6 +32,7 @@ RUN set -xe; \
         libtool \
         libxslt-dev \
         openssl-dev \
+        postgresql-dev \
         pcre-dev; \
     \
     apk add -U -X http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted gnu-libiconv; \
