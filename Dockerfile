@@ -50,6 +50,7 @@ RUN set -xe; \
         pcntl \
         pdo \
         pdo_mysql \
+        pdo_pgsql \
         soap \
         sockets \
         xmlrpc \
