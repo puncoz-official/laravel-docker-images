@@ -18,12 +18,16 @@ ENV DEBIAN_FRONTEND=noninteractive \
     COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_MEMORY_LIMIT=-1 \
     COMPOSER_HOME=/tmp/composer \
-    NVM_DIR=/usr/local/nvm
+    NVM_DIR=/usr/local/nvm \
+    COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone
 
-RUN set -eux; \
+# One build layer keeps the toolchain (g++/make/autoconf) out of the final
+# image. nvm.sh is not `set -u`-safe (it reads $_, which dash leaves unset),
+# so we use `set -ex` without -u.
+RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ca-certificates curl git xz-utils \
@@ -70,6 +74,7 @@ RUN set -eux; \
     nvm alias default "${DEFAULT_NODE_VERSION}"; \
     nvm use default; \
     corepack enable; \
+    corepack prepare yarn@stable --activate; \
     node_bin="$NVM_DIR/versions/node/$(nvm current)/bin"; \
     for b in node npm npx corepack yarn yarnpkg pnpm pnpx; do \
         [ -e "$node_bin/$b" ] && ln -sf "$node_bin/$b" "/usr/local/bin/$b"; \
