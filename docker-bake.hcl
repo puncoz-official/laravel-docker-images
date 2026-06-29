@@ -23,7 +23,7 @@ variable "IMAGE_NAME" {
 }
 
 variable "PHP_VERSIONS" {
-  default = ["7.4", "8.1", "8.2"]
+  default = ["7.4", "8.0", "8.1", "8.2"]
 }
 
 // The PHP version that owns the `:latest` tag.

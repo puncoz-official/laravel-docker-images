@@ -41,8 +41,8 @@ All builds are driven by `docker-bake.hcl` at the repo root. A `Makefile` wraps 
 
 ```shell
 make builder         # one-time: create the multi-platform buildx builder
-make build           # build all 6 images locally for host arch
-make push            # build + push all 6 images, multi-arch
+make build           # build all 8 images locally for host arch
+make push            # build + push all 8 images, multi-arch
 make 8.2             # build 8.2 + 8.2-grpc locally
 make push-8.2        # build + push 8.2 + 8.2-grpc, multi-arch
 make print           # inspect resolved targets as JSON
@@ -65,7 +65,7 @@ docker buildx bake --print                  # dry run
 |---|---|---|
 | `REGISTRY` | `puncoz` | Image registry |
 | `IMAGE_NAME` | `laravel-php` | Repository name |
-| `PHP_VERSIONS` | `["7.4", "8.1", "8.2"]` | PHP majors to build |
+| `PHP_VERSIONS` | `["7.4", "8.0", "8.1", "8.2"]` | PHP majors to build |
 | `DEFAULT_PHP_VERSION` | `"8.2"` | PHP version that owns `:latest` |
 | `COMPOSER_VERSION` | `"2.10.1"` | Pinned Composer release |
 | `NVM_VERSION` | `"0.40.5"` | Pinned nvm release |

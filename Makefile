@@ -70,11 +70,11 @@ login: ## Log in to Docker Hub
 	docker login
 
 .PHONY: build
-build: ## Build all 6 images, host arch (no push)
+build: ## Build all 8 images, host arch (no push)
 	$(call seq_bake,,--set '*.platform=$(PLATFORM)' --load)
 
 .PHONY: push
-push: ## Build + push all 6 images, multi-arch
+push: ## Build + push all 8 images, multi-arch
 	$(call seq_bake,,--set '*.platform=$(PLATFORMS)' --push)
 
 .PHONY: push-local
@@ -92,18 +92,22 @@ push-local: ## Push only tags already present in local docker (no rebuild). Use 
 		done
 
 # Per-PHP-version local builds: `make 8.2` -> laravel-8-2 + laravel-8-2-grpc.
-.PHONY: 7.4 8.1 8.2
+.PHONY: 7.4 8.0 8.1 8.2
 7.4: ## Build 7.4 + 7.4-grpc, host arch
 	$(call seq_bake,7-4,--set '*.platform=$(PLATFORM)' --load)
+8.0: ## Build 8.0 + 8.0-grpc, host arch
+	$(call seq_bake,8-0,--set '*.platform=$(PLATFORM)' --load)
 8.1: ## Build 8.1 + 8.1-grpc, host arch
 	$(call seq_bake,8-1,--set '*.platform=$(PLATFORM)' --load)
 8.2: ## Build 8.2 + 8.2-grpc, host arch
 	$(call seq_bake,8-2,--set '*.platform=$(PLATFORM)' --load)
 
 # Per-PHP-version push.
-.PHONY: push-7.4 push-8.1 push-8.2
+.PHONY: push-7.4 push-8.0 push-8.1 push-8.2
 push-7.4: ## Build + push 7.4 + 7.4-grpc, multi-arch
 	$(call seq_bake,7-4,--set '*.platform=$(PLATFORMS)' --push)
+push-8.0: ## Build + push 8.0 + 8.0-grpc, multi-arch
+	$(call seq_bake,8-0,--set '*.platform=$(PLATFORMS)' --push)
 push-8.1: ## Build + push 8.1 + 8.1-grpc, multi-arch
 	$(call seq_bake,8-1,--set '*.platform=$(PLATFORMS)' --push)
 push-8.2: ## Build + push 8.2 + 8.2-grpc, multi-arch
