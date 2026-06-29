@@ -1,0 +1,37 @@
+.git
+.gitignore
+.gitattributes
+.github
+.idea
+.vscode
+.editorconfig
+
+# Build artifacts rebuilt inside the image
+node_modules
+vendor
+public/build
+public/hot
+
+# Local state never belongs in an image
+.env
+.env.*
+!.env.example
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+bootstrap/cache/*.php
+
+# Tooling & tests not needed at runtime
+tests
+phpunit.xml*
+.phpunit*
+.php-cs-fixer*
+.pint.*
+.eslintrc*
+.prettierrc*
+*.md
+README*
+Dockerfile*
+docker-compose*.yml
